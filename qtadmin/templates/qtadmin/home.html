@@ -1,46 +1,92 @@
-<h1>Bienvenido, <b>{{request.user.quetziadmin}}</b></h1>
-<table border = '1'>
-    <thead>
-        <tr>
-            <th>Nombre del proyecto</th>
-            <th>Progreso</th>
-            <th>Fecha de Inicio</th>
-            <th>Dia de entrega estimada</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>
-                    {{project.name}}
-                </td>
-                <td>
-                    {{project.progress}} %
-                </td>
-                <td>
-                    {{project.initialDate}}
-                </td>
-                <td>
-                    {{project.finalDate}}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% extends "core/base_global.html" %}
+{% load qtadmin_extras %}
+{% block title %}{{request.user.quetziadmin}}{% endblock title %}
+{% block content %}
+{% include 'qtadmin/includes/navbar_qtadmin.html' with username=request.user.quetziadmin staff=request.user.is_staff %}
 
-<h1>Tareas</h1>
-{% for homework in homeworks %}
-    <h2>Tarea: {{homework.name}}</h2>
-    <p>
-        {{homework.description}}
-    </p>
-    <h4>Miembros</h4>
-    <ul>
-    {% for member in homework.members.all %}
-        <li>{{member}}{% if member == request.user.quetziadmin %} (Yo){% endif %}
-        </li>
-    {% endfor %}
-    </ul>
-{% empty %}
-    <h2>Nada que visualizar</h2>
-{% endfor %}
+<div class="container mt-3 mt-md-5 mb-3 mb-md-5">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <h1>Tus proyectos</h1>
+        </div>
+        <div class="col-12 mb-4">
+            {% if request.user.is_superuser %}
+                <a href="#" class="btn btn-lg btn-success">Nuevo Projecto</a>
+            {% endif %}
+        </div>
+        {% for project in projects %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style = "border-radius: 1rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Proyecto: {{project.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Empresa: {{project.business}}</h6>
+                        <p><b>Progreso: <em>{{project.progress}}%</em></b></p>
+                        <div class="progress">
+                            <div    class="progress-bar progress-bar-striped progress-bar-animated {% if project.progress < 35 %}bg-danger{% endif %}{% if project.progress >= 35 and not project.progress > 69 %}bg-warning{% endif %}{% if project.progress > 69 %}bg-success{% endif %}" 
+                                    role="progressbar"
+                                    aria-valuenow="{{project.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{project.progress}}%">
+                            </div>
+                        </div>
+                        <hr />
+                        <div>
+                            <h6>Dia de Inicio</h6>
+                            <p class="text-muted">{{project.initialDate}}</p>
+                        </div>
+                        <hr />
+                        <div>
+                            <h6>Dias restantes</h6>
+                            <p class="{% if project.finalDate|days_until < 1 %}text-danger{% else %}text-success{% endif %}">{{project.finalDate|days_until}} días restantes</p>
+                        </div>
+                        <hr />
+                        <a class="btn btn-block btn-primary mt-4 mb-3" href="#">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h3 class="text-danger">Ningun proyecto que mostrar</h3>
+        {% endfor %}
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h1>Tareas</h1>
+        </div>
+        {% for homework in homeworks %}
+           <div class="col-12 mt-3 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-uppercase">{{homework.name}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>Descripción</h4>
+                        <p>
+                            {{homework.description}}
+                        </p>
+                        <h5>Miembros</h5>
+                        <ul>
+                            {% for member in homework.members.all %}
+                                <li>{{member}}{% if member == request.user.quetziadmin %} (Yo){% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <hr />
+                        <div>
+                            <h6>Dia de Inicio</h6>
+                            <p class="text-muted">{{homework.initialDate}}</p>
+                        </div>
+                        <hr />
+                        <div>
+                            <h6>Dias restantes</h6>
+                            <p class="{% if homework.finalDate|days_until < 1 %}text-danger{% else %}text-success{% endif %}">{{homework.finalDate|days_until}} días restantes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h3 class="text-danger">Vas al corriente</h3>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

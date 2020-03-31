@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
     'business.apps.BusinessConfig',
     'project.apps.ProjectConfig',
     'qtadmin.apps.QtadminConfig'
@@ -122,6 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-#media
+
+# media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# logout
+
+LOGOUT_REDIRECT_URL = 'login'
