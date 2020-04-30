@@ -19,12 +19,14 @@ from django.conf import settings
 from django.views.generic import RedirectView
 from qtadmin.urls import qtadmin_patterns
 from business.urls import business_patterns
+from project.urls import project_patterns
 
 urlpatterns = [
     path('', RedirectView.as_view(url = reverse_lazy('login'), permanent = False)),
     path('admin/', admin.site.urls),
     path('business/', include(business_patterns)),
-    path('qtadmin/', include(qtadmin_patterns)),
+    path('quetziadmin/', include(qtadmin_patterns)),
+    path('project/', include(project_patterns)),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('registration.urls')),
 ]

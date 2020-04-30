@@ -11,7 +11,7 @@
         </div>
         <div class="col-12 mb-4">
             {% if request.user.is_superuser %}
-                <a href="#" class="btn btn-lg btn-success">Nuevo Projecto</a>
+                <a href="{% url 'project:create' %}" class="btn btn-lg btn-success">Nuevo Projecto</a>
             {% endif %}
         </div>
         {% for project in projects %}

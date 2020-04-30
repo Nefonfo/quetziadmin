@@ -1,0 +1,78 @@
+#btn-cancel, #btn-save{
+    width: 45%;
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#btn-cancel {
+    color: #c82333;
+}
+
+#btn-save {
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+#btn-actions{
+    width: 45%;
+}
+
+.modal-footer{
+    text-align: center;
+}
+
+#cropper_modal .submit-row {
+    /* margin: 0px; */
+    display: flex !important;
+    justify-content: center;
+    padding: 12px !important;
+}
+
+.preview_container::before {
+    content: "Vista previa:";
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(40, 40, 40);
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -10px;
+    z-index: 1024;
+}
+
+.modal-header{
+    display: none;
+}
+
+.preview_container{
+    padding: .5rem;
+}
+
+#cropper_modal .modal-dialog {
+    max-width: 100vw;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0, 0.5);
+}
+
+.modal-content{
+    overflow-y: scroll;
+}

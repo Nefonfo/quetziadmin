@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'core',
     'business.apps.BusinessConfig',
     'project.apps.ProjectConfig',
-    'qtadmin.apps.QtadminConfig'
+    'qtadmin.apps.QtadminConfig',
+    'django_cleanup.apps.CleanupConfig',
+    'cropperjs'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,46 @@
+{% extends "core/base_global.html" %}
+{% load static %}
+{% include 'includes/navbar_qtadmin.html' %}
+{% block title %}{{request.user.quetziadmin}}{% endblock title %}
+{% block content %}
+{% include 'qtadmin/includes/navbar_qtadmin.html' with username=request.user.quetziadmin staff=request.user.is_staff %}
+    <div class="container">
+        <div class="row justify-content-center p-5">
+            <div class="col-10">
+               <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-12 col-md-5">
+                            <div class="form-group">
+                                {{form.image}}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <div class="form-group">
+                                <label for="id_name">Nombre (Alias):</label>
+                                {{form.name}}
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="id_description">Descripción:</label>
+                                {{form.description}}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-lg btn-success">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block aditional_css %}
+<link href="{% static 'css/cropper.min.css' %}" type="text/css" media="all" rel="stylesheet">
+<link href="{% static 'css/cropper.extra.css' %}" type="text/css" media="all" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'qtadmin/css/cropper.extra_btn.css' %}">
+<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cropper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cropper.extra.js' %}"></script>
+{% endblock aditional_css %}
